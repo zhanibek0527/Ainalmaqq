@@ -1,0 +1,326 @@
+```html
+<!DOCTYPE html>
+<html lang="kk" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>10-шы Айналмаққа шақыру</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Playfair Display for luxury serif & Inter for clean text -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Playfair Display', serif, 'Inter', sans-serif;
+            background-color: #fbf7f2;
+            color: #5c4033;
+            overflow-x: hidden;
+        }
+        .sans-font {
+            font-family: 'Inter', sans-serif;
+        }
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(5deg); }
+        }
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.05); }
+        }
+        @keyframes envelopeOpen {
+            0% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.05) rotate(2deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+        .animate-float-slow {
+            animation: floatSlow 8s ease-in-out infinite;
+        }
+        .animate-pulse-glow {
+            animation: pulseGlow 4s ease-in-out infinite;
+        }
+        .envelope-shake {
+            animation: envelopeOpen 0.6s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-[#fbf7f2] text-[#5c4033] selection:bg-[#dfc29f] selection:text-[#3d271d] relative">
+
+    <div id="particles-container" class="fixed inset-0 pointer-events-none z-10 overflow-hidden"></div>
+
+    <div class="fixed top-6 right-6 z-50">
+        <button id="music-toggle" onclick="toggleMusic()" class="flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-md border border-[#d4af37]/60 rounded-full shadow-lg text-[#7c5a3d] hover:bg-[#f5efe6] transition-all duration-300 transform hover:scale-105">
+            <i data-lucide="volume-x" id="music-icon" class="w-5 h-5 opacity-60"></i>
+            <span class="text-xs uppercase tracking-widest sans-font font-medium" id="music-text">Әуен</span>
+        </button>
+    </div>
+
+    <section id="section-intro" class="relative min-h-screen flex flex-col items-center justify-center text-center px-4 py-20 bg-gradient-to-b from-[#f5efe6] via-[#fbf7f2] to-[#fbf7f2]">
+        <div class="absolute inset-0 bg-[radial-gradient(#d4af37_1px,transparent_1px)] [background-size:32px_32px] opacity-10 pointer-events-none"></div>
+
+        <div class="relative z-20 max-w-2xl mx-auto flex flex-col items-center">
+            <div class="w-24 h-24 mb-6 rounded-full bg-gradient-to-tr from-[#d4af37]/20 via-[#f5efe6] to-[#d4af37]/30 border border-[#d4af37]/50 flex items-center justify-center shadow-inner animate-pulse-glow">
+                <i data-lucide="sparkles" class="w-10 h-10 text-[#d4af37]"></i>
+            </div>
+
+            <div class="inline-block border-y border-[#d4af37]/40 py-2 px-8 mb-6">
+                <p class="text-xs md:text-sm uppercase tracking-[0.3em] text-[#8c6d53] sans-font">
+                    Дәстүрлі отырыс шақыруы
+                </p>
+            </div>
+
+            <h1 class="text-3xl md:text-5xl lg:text-6xl font-normal tracking-wide text-[#4a3328] mb-6 leading-tight">
+                “10-ШЫ АЙНАЛМАҚҚА ШАҚЫРУ”
+            </h1>
+
+            <p class="text-xl md:text-2xl text-[#7c5a3d] italic mb-10">
+                “Ардақты абысындар!”
+            </p>
+
+            <!-- Envelope Card Trigger -->
+            <div class="relative group mb-12">
+                <div class="absolute -inset-1 bg-gradient-to-r from-[#d4af37] to-[#e6ca65] rounded-2xl blur opacity-30 group-hover:opacity-75 transition duration-500"></div>
+                
+                <button id="envelope-btn" onclick="openInvitation()" class="relative cursor-pointer bg-white/90 backdrop-blur-md border border-[#d4af37]/60 px-8 py-5 rounded-2xl shadow-xl flex items-center gap-4 hover:bg-white transition-all transform hover:-translate-y-1">
+                    <i data-lucide="mail" class="w-6 h-6 text-[#d4af37] animate-bounce"></i>
+                    <span class="text-lg md:text-xl font-medium tracking-wide text-[#5c4033]">
+                        Шақыруды ашу ♡
+                    </span>
+                </button>
+            </div>
+
+            <div class="animate-bounce mt-4 cursor-pointer" onclick="scrollToSection('section-invitation')">
+                <i data-lucide="chevron-down" class="w-6 h-6 text-[#d4af37]"></i>
+            </div>
+        </div>
+    </section>
+
+    <section id="section-invitation" class="py-24 px-4 bg-[#fbf7f2] relative">
+        <div class="max-w-3xl mx-auto bg-white/80 backdrop-blur-md border border-[#d4af37]/30 rounded-3xl p-8 md:p-14 shadow-2xl relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-[#d4af37]/10 to-transparent rounded-bl-full pointer-events-none"></div>
+            <div class="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-[#d4af37]/10 to-transparent rounded-tr-full pointer-events-none"></div>
+
+            <div class="text-center mb-10">
+                <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-[#f5efe6] border border-[#d4af37]/40 mb-4 text-[#d4af37]">
+                    <i data-lucide="flower-2" class="w-6 h-6"></i>
+                </div>
+                <h2 class="text-2xl md:text-3xl font-normal text-[#4a3328]">Жүрекжақты шақыру</h2>
+                <div class="w-16 h-[1px] bg-[#d4af37] mx-auto mt-3"></div>
+            </div>
+
+            <div class="space-y-6 text-base md:text-xl text-[#5c4033] leading-relaxed text-center">
+                <p class="font-semibold text-[#4a3328] text-xl md:text-2xl">
+                    Ардақты абысындар!
+                </p>
+                <p class="text-justify md:text-center leading-loose">
+                    Сіздерді ақ дастархан басында бас қосып, әдемі әңгіме-дүкен құрып, бір күліп, бір сырласып, көңілді уақыт өткізуге арналған 10-шы Айналмақ отырысына шын жүректен шақырамын!
+                </p>
+                <p class="font-medium text-[#7c5a3d] pt-4 text-lg md:text-xl italic">
+                    Бас қосуымыз берекелі, жүздесуіміз қуанышты болсын!
+                </p>
+            </div>
+
+            <div class="mt-12 flex justify-center">
+                <button onclick="scrollToSection('section-details')" class="px-6 py-3 bg-[#f5efe6] border border-[#d4af37]/60 text-[#7c5a3d] rounded-full hover:bg-[#d4af37] hover:text-white transition-all duration-300 text-sm tracking-wider uppercase sans-font font-medium shadow-sm">
+                    Толығырақ көру ↓
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section id="section-details" class="py-24 px-4 bg-[#f5efe6]/60 relative">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-16">
+                <p class="text-xs uppercase tracking-[0.3em] text-[#8c6d53] sans-font mb-2">Мәліметтер</p>
+                <h2 class="text-3xl md:text-4xl font-normal text-[#4a3328]">Бас қосу уақыты мен орны</h2>
+                <div class="w-20 h-[1px] bg-[#d4af37] mx-auto mt-3"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Date Card -->
+                <div class="bg-white/90 backdrop-blur-md border border-[#d4af37]/40 rounded-2xl p-8 text-center shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="w-14 h-14 mx-auto mb-6 rounded-full bg-[#f5efe6] border border-[#d4af37]/50 flex items-center justify-center text-[#d4af37]">
+                        <i data-lucide="calendar" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-sm sans-font uppercase tracking-widest text-[#8c6d53] mb-2">Күні</h3>
+                    <p class="text-2xl md:text-3xl text-[#4a3328] font-medium">17 қазан</p>
+                    <p class="text-xs text-[#7c5a3d] mt-1 sans-font">2026 жыл</p>
+                </div>
+
+                <!-- Time Card -->
+                <div class="bg-white/90 backdrop-blur-md border border-[#d4af37]/40 rounded-2xl p-8 text-center shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="w-14 h-14 mx-auto mb-6 rounded-full bg-[#f5efe6] border border-[#d4af37]/50 flex items-center justify-center text-[#d4af37]">
+                        <i data-lucide="clock" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-sm sans-font uppercase tracking-widest text-[#8c6d53] mb-2">Уақыты</h3>
+                    <p class="text-2xl md:text-3xl text-[#4a3328] font-medium">14:00</p>
+                    <p class="text-xs text-[#7c5a3d] mt-1 sans-font">Сағат екіде</p>
+                </div>
+
+                <!-- Address Card -->
+                <div class="bg-white/90 backdrop-blur-md border border-[#d4af37]/40 rounded-2xl p-8 text-center shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                    <div class="w-14 h-14 mx-auto mb-6 rounded-full bg-[#f5efe6] border border-[#d4af37]/50 flex items-center justify-center text-[#d4af37]">
+                        <i data-lucide="map-pin" class="w-7 h-7"></i>
+                    </div>
+                    <h3 class="text-sm sans-font uppercase tracking-widest text-[#8c6d53] mb-2">Мекенжайы</h3>
+                    <p class="text-xl md:text-2xl text-[#4a3328] font-medium">Шоғы батыр көшесі, 118В</p>
+                    <p class="text-xs text-[#7c5a3d] mt-1 sans-font">Қонақжай шаңырақ</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 px-4 bg-[#fbf7f2] relative overflow-hidden">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-16">
+                <p class="text-xs uppercase tracking-[0.3em] text-[#8c6d53] sans-font mb-2">Мерекелік көңіл-күй</p>
+                <h2 class="text-3xl md:text-4xl font-normal text-[#4a3328]">Дәстүр мен нәзіктік үйлесімі</h2>
+                <div class="w-20 h-[1px] bg-[#d4af37] mx-auto mt-3"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="group relative h-80 rounded-3xl overflow-hidden shadow-xl border border-[#d4af37]/30 bg-gradient-to-br from-[#f5efe6] to-[#ebdccb] flex flex-col items-center justify-center p-8 text-center">
+                    <div class="absolute inset-0 bg-[radial-gradient(#d4af37_1px,transparent_1px)] [background-size:16px_16px] opacity-20"></div>
+                    <div class="w-16 h-16 rounded-full bg-white/80 border border-[#d4af37]/50 flex items-center justify-center mb-4 text-[#d4af37] shadow-md group-hover:scale-110 transition-transform">
+                        <i data-lucide="sparkles" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl text-[#4a3328] mb-2">Ақ дастархан</h3>
+                    <p class="text-sm text-[#7c5a3d]">Береке мен молшылықтың символы</p>
+                </div>
+
+                <div class="group relative h-80 rounded-3xl overflow-hidden shadow-xl border border-[#d4af37]/30 bg-gradient-to-br from-[#f5efe6] to-[#ebdccb] flex flex-col items-center justify-center p-8 text-center">
+                    <div class="absolute inset-0 bg-[radial-gradient(#d4af37_1px,transparent_1px)] [background-size:16px_16px] opacity-20"></div>
+                    <div class="w-16 h-16 rounded-full bg-white/80 border border-[#d4af37]/50 flex items-center justify-center mb-4 text-[#d4af37] shadow-md group-hover:scale-110 transition-transform">
+                        <i data-lucide="flower-2" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl text-[#4a3328] mb-2">Әдемі әңгіме</h3>
+                    <p class="text-sm text-[#7c5a3d]">Жылы лебіз бен шынайы сырласу</p>
+                </div>
+
+                <div class="group relative h-80 rounded-3xl overflow-hidden shadow-xl border border-[#d4af37]/30 bg-gradient-to-br from-[#f5efe6] to-[#ebdccb] flex flex-col items-center justify-center p-8 text-center">
+                    <div class="absolute inset-0 bg-[radial-gradient(#d4af37_1px,transparent_1px)] [background-size:16px_16px] opacity-20"></div>
+                    <div class="w-16 h-16 rounded-full bg-white/80 border border-[#d4af37]/50 flex items-center justify-center mb-4 text-[#d4af37] shadow-md group-hover:scale-110 transition-transform">
+                        <i data-lucide="heart" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-xl text-[#4a3328] mb-2">10-шы мереке</h3>
+                    <p class="text-sm text-[#7c5a3d]">Ерекше есте қаларлық белес</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 px-4 bg-[#f5efe6]/60 relative">
+        <div class="max-w-4xl mx-auto text-center">
+            <div class="mb-16">
+                <p class="text-xs uppercase tracking-[0.3em] text-[#8c6d53] sans-font mb-2">Уақыт санағы</p>
+                <h2 class="text-3xl md:text-4xl font-normal text-[#4a3328]">Жүздесуге қалған уақыт</h2>
+                <div class="w-20 h-[1px] bg-[#d4af37] mx-auto mt-3"></div>
+            </div>
+
+            <div id="countdown-container" class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                <div class="bg-white/90 backdrop-blur-md border border-[#d4af37]/40 rounded-2xl p-6 shadow-md">
+                    <div id="cd-days" class="text-3xl md:text-5xl text-[#4a3328] font-bold mb-1">0</div>
+                    <div class="text-xs uppercase tracking-widest text-[#8c6d53] sans-font">Күн</div>
+                </div>
+                <div class="bg-white/90 backdrop-blur-md border border-[#d4af37]/40 rounded-2xl p-6 shadow-md">
+                    <div id="cd-hours" class="text-3xl md:text-5xl text-[#4a3328] font-bold mb-1">0</div>
+                    <div class="text-xs uppercase tracking-widest text-[#8c6d53] sans-font">Сағат</div>
+                </div>
+                <div class="bg-white/90 backdrop-blur-md border border-[#d4af37]/40 rounded-2xl p-6 shadow-md">
+                    <div id="cd-minutes" class="text-3xl md:text-5xl text-[#4a3328] font-bold mb-1">0</div>
+                    <div class="text-xs uppercase tracking-widest text-[#8c6d53] sans-font">Минут</div>
+                </div>
+                <div class="bg-white/90 backdrop-blur-md border border-[#d4af37]/40 rounded-2xl p-6 shadow-md">
+                    <div id="cd-seconds" class="text-3xl md:text-5xl text-[#4a3328] font-bold mb-1">0</div>
+                    <div class="text-xs uppercase tracking-widest text-[#8c6d53] sans-font">Секунд</div>
+                </div>
+            </div>
+            <div id="countdown-ended" class="hidden bg-white/90 backdrop-blur-md border border-[#d4af37]/50 rounded-3xl p-10 shadow-xl">
+                <h3 class="text-2xl md:text-3xl text-[#4a3328] mb-2">Күні бүгін келіп жетті! 🎉</h3>
+                <p class="text-[#7c5a3d]">Қош келдіңіздер!</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 px-4 bg-[#fbf7f2] relative">
+        <div class="max-w-3xl mx-auto text-center bg-white/80 backdrop-blur-md border border-[#d4af37]/30 rounded-3xl p-10 md:p-14 shadow-xl">
+            <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-[#f5efe6] border border-[#d4af37]/50 flex items-center justify-center text-[#d4af37]">
+                <i data-lucide="compass" class="w-8 h-8"></i>
+            </div>
+
+            <p class="text-xs uppercase tracking-[0.3em] text-[#8c6d53] sans-font mb-2">Орын картасы</p>
+            <h2 class="text-2xl md:text-3xl font-normal text-[#4a3328] mb-6">Бас қосу мекенжайы</h2>
+            
+            <p class="text-xl md:text-2xl text-[#5c4033] mb-8 font-medium">
+                Шоғы батыр көшесі, 118В
+            </p>
+
+            <a href="https://www.google.com/maps/search/?api=1&query=Шоғы+батыр+көшесі+118В" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 px-8 py-4 bg-[#d4af37] text-white rounded-full shadow-lg hover:bg-[#c39e2d] transition-all transform hover:scale-105 sans-font font-medium tracking-wider text-sm uppercase">
+                <i data-lucide="map-pin" class="w-5 h-5"></i>
+                <span>Мекенжайды ашу</span>
+            </a>
+        </div>
+    </section>
+
+    <section class="py-28 px-4 bg-gradient-to-t from-[#f5efe6] via-[#fbf7f2] to-[#fbf7f2] relative text-center">
+        <div class="max-w-3xl mx-auto flex flex-col items-center">
+            <div class="w-20 h-20 rounded-full bg-white border border-[#d4af37]/50 flex items-center justify-center mb-8 shadow-md text-[#d4af37]">
+                <i data-lucide="sparkles" class="w-10 h-10 animate-pulse"></i>
+            </div>
+
+            <h2 class="text-2xl md:text-4xl text-[#4a3328] leading-relaxed mb-6">
+                “Ақ дастарханымыздың қадірлі қонағы болыңыздар! ❤️”
+            </h2>
+
+            <p class="text-xl md:text-2xl text-[#7c5a3d] italic mb-12">
+                “Кездескенше, аяулы абысындар! 🌸”
+            </p>
+
+            <div class="w-24 h-[1px] bg-[#d4af37] mb-8"></div>
+
+            <p class="text-xs uppercase tracking-[0.3em] text-[#8c6d53] sans-font">
+                10-шы Айналмаққа шақыру • 2026
+            </p>
+        </div>
+    </section>
+
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+
+        // Generate floating background particles / petals
+        const particlesContainer = document.getElementById('particles-container');
+        for (let i = 0; i < 15; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'absolute animate-float-slow opacity-30 text-[#d4af37]';
+            particle.style.top = `${(i * 7) % 100}%`;
+            particle.style.left = `${(i * 13) % 100}%`;
+            particle.style.animationDelay = `${i * 1.5}s`;
+            particle.style.animationDuration = `${12 + (i % 8)}s`;
+            particle.innerHTML = i % 2 === 0 ? '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>' : '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg>';
+            particlesContainer.appendChild(particle);
+        }
+
+        // Smooth scroll helper
+        function scrollToSection(id) {
+            const el = document.getElementById(id);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Open invitation button action with envelope shake effect
+        function openInvitation() {
+            const btn = document.getElementById('envelope-btn');
+            btn.classList.add('envelope-shake');
+            setTimeout(() => {
+                btn.classList.remove('envelope-shake');
+                scrollToSection('section-invitation');
+            }, 500);
+        }
+
+        // Countdown Timer Logic for October 17, 2026, 14:00
+     
